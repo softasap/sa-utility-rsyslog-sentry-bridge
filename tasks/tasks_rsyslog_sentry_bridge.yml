@@ -46,3 +46,5 @@
       become: yes
       tags:
         - rsyslogsentrybridge
+        
+    when: docker_test is not defined
