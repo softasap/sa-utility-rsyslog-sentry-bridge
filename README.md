@@ -29,6 +29,11 @@ $ActionQueueSaveOnShutdown on           # save in-memory data if rsyslog shuts d
 *.* @@127.0.0.1:10514;RSYSLOG_SyslogProtocol23Format
 ```
 
+Alternative syntax
+```
+action(type="omfwd" Target="127.0.0.1" Port="10514" Protocol="udp" Template="RSYSLOG_SyslogProtocol23Format" )
+```
+
 Example of use: check box-example
 
 Simple:
