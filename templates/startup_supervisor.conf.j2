@@ -1,4 +1,11 @@
 [program:rsyslog_sentry]
+user={{rsyslog_sentry_user}}
+numprocs=1
+environment=PATH="{{rsyslog_sentry_installdir}}/env/bin:%(ENV_PATH)s"
 command=python {{rsyslog_sentry_installdir}}/rsyslog_sentry.py
+stdout_logfile=/var/log/supervisord/%(program_name)s.log
+stdout_logfile_maxbytes=50MB
+stderr_logfile=/var/log/supervisord/%(program_name)s.error.log
+stderr_logfile_maxbytes=50MB
 autostart=true
 autorestart=true

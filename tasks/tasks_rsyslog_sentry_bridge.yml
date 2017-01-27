@@ -1,7 +1,7 @@
 ---
 
   - name: RSysLog-Sentry-Bridge | Ensure installation folder exists
-    file: path="{{rsyslog_sentry_installdir}}" state="directory" owner="rsyslog_sentry_user" group="rsyslog_sentry_user"
+    file: path="{{rsyslog_sentry_installdir}}" state="directory" owner="{{rsyslog_sentry_user}}" group="{{rsyslog_sentry_user}}"
     become: yes
     tags:
       - rsyslogsentrybridge
@@ -9,28 +9,28 @@
   - name: RSysLog-Sentry-Bridge | Template requirements
     template: src="{{role_dir}}/templates/requirements.txt.j2" dest="{{rsyslog_sentry_installdir}}/requirements.txt"
     become: yes
-    become_user:"{{rsyslog_sentry_user}}"
+    become_user: "{{rsyslog_sentry_user}}"
     tags:
       - rsyslogsentrybridge
 
   - name: RSysLog-Sentry-Bridge | Template application
     template: src="{{role_dir}}/templates/rsyslog_sentry.py.j2" dest="{{rsyslog_sentry_installdir}}/rsyslog_sentry.py"
     become: yes
-    become_user:"{{rsyslog_sentry_user}}"
+    become_user: "{{rsyslog_sentry_user}}"
     tags:
       - rsyslogsentrybridge
 
   - name: RSysLog-Sentry-Bridge | Initialize virtual environment
     pip: requirements="{{rsyslog_sentry_installdir}}/requirements.txt" virtualenv="{{rsyslog_sentry_installdir}}/env"
     become: yes
-    become_user:"{{rsyslog_sentry_user}}"
+    become_user: "{{rsyslog_sentry_user}}"
     tags:
       - rsyslogsentrybridge
 
   - block:
 
     - name: RSysLog-Sentry-Bridge | Template supervisor startup
-      template: src="{{role_dir}}/templates/rsyslog_sentry.py.j2" dest="/etc/supervisor/conf.d/rsyslog_sentry.conf"
+      template: src="{{role_dir}}/templates/startup_supervisor.conf.j2" dest="/etc/supervisor/conf.d/rsyslog_sentry.conf"
       become: yes
       tags:
         - rsyslogsentrybridge
