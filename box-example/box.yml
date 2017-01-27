@@ -1,0 +1,24 @@
+---
+- hosts: www
+
+  vars:
+    - root_dir: ..
+    - sentry_dsn: "blabla"
+
+
+  pre_tasks:
+    - debug: msg="Pre tasks section"
+
+  roles:
+     - {
+        role: "sa-utility-rsyslog-sentry-bridge",
+        rsyslog_sentry_dsn: "{{sentry_dsn}}"
+
+       }
+
+  tasks:
+
+    - debug: msg="Tasks section"
+
+
+

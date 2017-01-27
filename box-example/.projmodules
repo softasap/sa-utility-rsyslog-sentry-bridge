@@ -1,0 +1,4 @@
+[submodule "roles/sa-utility-rsyslog-sentry-bridge"]
+        path = roles/sa-utility-rsyslog-sentry-bridge
+        url = https://github.com/softasap/sa-utility-rsyslog-sentry-bridge.git
+

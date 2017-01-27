@@ -1,0 +1,11 @@
+---
+# defaults file for sa-utility-rsyslog-sentry-bridge
+role_dir: "{{role_path}}"
+
+option_install_python: true
+
+rsyslog_sentry_dsn: "SPECIFY YOURS EXTERNALLY"
+
+rsyslog_sentry_installdir: /opt/rsyslog_sentry_bridge
+rsyslog_sentry_user: "{{ansible_user_id}}"
+rsyslog_startup: supervisor
