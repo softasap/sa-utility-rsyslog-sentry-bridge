@@ -34,6 +34,34 @@ Alternative syntax
 action(type="omfwd" Target="127.0.0.1" Port="10514" Protocol="udp" Template="RSYSLOG_SyslogProtocol23Format" )
 ```
 
+Audit log forwarding:
+
+if you plan to forward auditlog, makesure syslog has read access
+
+chown -R root:syslog /var/log/audit
+
+
+Potential rsyslog configuration to forward CRITICAL events to sentry would be 
+
+```
+$ModLoad imfile
+$InputFileName /var/log/audit/audit.log
+$InputFileTag Auditd
+$InputFileStateFile /var/spool/rsyslog
+$InputFileFacility local4
+$InputRunFileMonitor
+
+local4.* /var/log/debugfmt;RSYSLOG_DebugFormat
+
+:msg,contains,"type=EXECVE"
+:msg,contains,"passwd"
+local4.* @@127.0.0.1:10514;RSYSLOG_SyslogProtocol23Format
+
+:msg,contains,"DEL_GROUP"
+local4.* @@127.0.0.1:10514;RSYSLOG_SyslogProtocol23Format
+```
+
+
 Example of use: check box-example
 
 Simple:
