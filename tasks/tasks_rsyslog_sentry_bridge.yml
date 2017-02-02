@@ -41,10 +41,16 @@
       tags:
         - rsyslogsentrybridge
 
+    - name: RSysLog-Sentry-Bridge | supervisorctl update about rsyslog_sentry
+      shell: supervisorctl update
+      become: yes
+      tags:
+        - rsyslogsentrybridge
+
     - name: RSysLog-Sentry-Bridge | supervisorctl start rsyslog_sentry
       shell: supervisorctl start rsyslog_sentry
       become: yes
       tags:
         - rsyslogsentrybridge
-        
+
     when: docker_test is not defined
